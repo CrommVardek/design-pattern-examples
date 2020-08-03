@@ -1,4 +1,4 @@
-package java.com.crommvardek.designpatternexamples;
+package com.crommvardek.designpatternexamples;
 
 public class Application {
 
