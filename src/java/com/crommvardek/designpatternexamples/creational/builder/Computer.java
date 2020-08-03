@@ -1,4 +1,4 @@
-package java.com.crommvardek.designpatternexamples.creational.builder;
+package com.crommvardek.designpatternexamples.creational.builder;
 
 // This is the class we want to build, but is rather "complex" to create and/or not straightforward (because of the long
 // constructor method).

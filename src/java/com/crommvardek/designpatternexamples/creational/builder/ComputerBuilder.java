@@ -1,4 +1,4 @@
-package java.com.crommvardek.designpatternexamples.creational.builder;
+package com.crommvardek.designpatternexamples.creational.builder;
 
 public interface ComputerBuilder {
 

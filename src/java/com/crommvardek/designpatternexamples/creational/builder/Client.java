@@ -1,4 +1,4 @@
-package java.com.crommvardek.designpatternexamples.creational.builder;
+package com.crommvardek.designpatternexamples.creational.builder;
 
 //Client is the consumer of the builder.
 public class Client {
