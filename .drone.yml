@@ -1,0 +1,42 @@
+kind: pipeline
+type: docker
+name: default
+
+environment:
+  PMBOT_URL: https://app.pmbot.io
+  PMBOT_PROJECT_ID: 5f22f2389e335c4d7f814b33
+
+steps:
+  - name: update
+    image: pmbot/bot
+    environment:
+      PMBOT_SSH_PRIVATE_KEY:
+        from_secret: PMBOT_SSH_PRIVATE_KEY
+      PMBOT_TOKEN:
+        from_secret: PMBOT_TOKEN
+    commands:
+      # skip this job for standard pipelines
+      - if [ -z $PMBOT ]; then exit 0; fi
+      # make node_modules available to pmbot CLI
+      - npm ci
+      # run the pmbot CLI
+      - pmbot update --disable-host-key-verification
+
+  # your existing build/test jobs
+  - name: test
+    image: node:12
+    commands:
+      # skip this job when an update is triggered
+      - if [ ! -z $PMBOT ]; then exit 0; fi
+      - npm ci
+      - npm test
+
+  # notify pmbot of build status (must be the last step)
+  - name: notify
+    image: pmbot/bot
+    pull: always
+    environment:
+      PMBOT_TOKEN:
+        from_secret: PMBOT_TOKEN
+    commands:
+      - pmbot notify --debug
