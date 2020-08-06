@@ -24,12 +24,10 @@ steps:
 
   # your existing build/test jobs
   - name: test
-    image: node:12
+    image: maven:3-jdk-10
     commands:
-      # skip this job when an update is triggered
-      - if [ ! -z $PMBOT ]; then exit 0; fi
-      - npm ci
-      - npm test
+      - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+      - mvn test -B
 
   # notify pmbot of build status (must be the last step)
   - name: notify
