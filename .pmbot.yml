@@ -7,3 +7,8 @@ packageManagers:
         on:
           - success
           - partial
+      #- name: create-issue
+       #   on:
+        #    - failure
+         # config:
+          #  token: '${env.MY_TOKEN}'
