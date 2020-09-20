@@ -1,7 +1,7 @@
 version: "1"
 packageManagers:
   - packageManager:
-      name: npm
+      name: maven
     actions:
       - name: auto-merge
         on:
