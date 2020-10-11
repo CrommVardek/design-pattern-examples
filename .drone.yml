@@ -8,7 +8,7 @@ environment:
 
 steps:
   - name: update
-    image: pmbot/bot
+    image: pmbot/bot-maven
     environment:
       PMBOT_SSH_PRIVATE_KEY:
         from_secret: PMBOT_SSH_PRIVATE_KEY
@@ -18,20 +18,20 @@ steps:
       # skip this job for standard pipelines
       - if [ -z $PMBOT ]; then exit 0; fi
       # make node_modules available to pmbot CLI
-      - npm ci
+      - mvn install
       # run the pmbot CLI
       - pmbot update --disable-host-key-verification
 
   # your existing build/test jobs
   - name: test
-    image: maven:3-jdk-8
+    image: maven:3-jdk-11
     commands:
       - mvn install
       - mvn test -B
 
   # notify pmbot of build status (must be the last step)
   - name: notify
-    image: pmbot/bot
+    image: pmbot/bot-maven
     pull: always
     environment:
       PMBOT_TOKEN:
