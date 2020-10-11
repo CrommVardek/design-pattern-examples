@@ -8,7 +8,7 @@ environment:
 
 steps:
   - name: update
-    image: pmbot/bot-maven
+    image: pmbot/bot:maven
     environment:
       PMBOT_SSH_PRIVATE_KEY:
         from_secret: PMBOT_SSH_PRIVATE_KEY
